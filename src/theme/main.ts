@@ -1,7 +1,8 @@
 const theme = {
   main: {
     primary: "#7C9682",
-    secondary: "#FFF",
+    secondary: "#777777",
+    neutral: "#FFF",
   },
 };
 
