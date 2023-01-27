@@ -1,16 +1,27 @@
 import React, { useState } from "react";
 import { ImageBackground, View } from "react-native";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
+import SecondaryButton from "../../components/buttons/SecondaryButton";
 import CardInput from "../../components/inputs/CardInput";
+import { ButtonsContainer } from "../../styles";
+import { formatMoney } from "../../utils";
 import { Container, Title, TitleContainer } from "./styles";
 
 const AddExpense = () => {
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
-  const [value, setValue] = useState("0,00");
+  const [value, setValue] = useState(formatMoney(0));
 
   const handleDescriptionChange = () => {};
   const handleTypeChange = () => {};
   const handleValueChange = () => {};
+
+  const handleAddExpense = () => {};
+  const handleClean = () => {
+    setDescription("");
+    setType("");
+    setValue(formatMoney(0));
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -43,6 +54,10 @@ const AddExpense = () => {
             text={value}
             onChange={handleValueChange}
           />
+          <ButtonsContainer>
+            <SecondaryButton onPress={handleClean} title="Limpar" />
+            <PrimaryButton onPress={handleAddExpense} title="Salvar" />
+          </ButtonsContainer>
         </Container>
       </ImageBackground>
     </View>
