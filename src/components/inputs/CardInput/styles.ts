@@ -13,7 +13,7 @@ export const TitleContainer = styled.View`
 `;
 
 export const Title = styled.Text`
-  color: ${(props) => props.theme.main.secondary};
+  color: ${(props) => props.theme.main.neutral};
   font-size: 13px;
   text-transform: uppercase;
 `;
