@@ -3,7 +3,7 @@ import { Pressable, TextInput } from "react-native";
 import { InputProps } from "../types";
 import { Container } from "./styles";
 
-const Input = ({ text, onChange }: InputProps) => {
+const GenericInput = ({ text, onChange }: InputProps) => {
   const inputRef = createRef<TextInput>();
 
   const focusInput = () => {
@@ -18,4 +18,4 @@ const Input = ({ text, onChange }: InputProps) => {
     </Pressable>
   );
 };
-export default Input;
+export default GenericInput;
