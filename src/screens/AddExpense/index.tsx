@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { ImageBackground, Text, View } from "react-native";
-import { useTheme } from "styled-components";
+import { ImageBackground, View } from "react-native";
 import CardInput from "../../components/inputs/CardInput";
-import { InputType } from "../../components/inputs/types";
 import { Container, Title, TitleContainer } from "./styles";
 
 const AddExpense = () => {
