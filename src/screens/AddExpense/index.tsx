@@ -4,23 +4,28 @@ import PrimaryButton from "../../components/buttons/PrimaryButton";
 import SecondaryButton from "../../components/buttons/SecondaryButton";
 import CardInput from "../../components/inputs/CardInput";
 import { ButtonsContainer } from "../../styles";
-import { formatMoney } from "../../utils";
+import { formatMoney, moneyToFloat } from "../../utils";
 import { Container, Title, TitleContainer } from "./styles";
 
 const AddExpense = () => {
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
-  const [value, setValue] = useState(formatMoney(0));
+  const [value, setValue] = useState(0);
 
-  const handleDescriptionChange = () => {};
+  const handleDescriptionChange = (text: string) => {
+    setDescription(text);
+  };
   const handleTypeChange = () => {};
-  const handleValueChange = () => {};
+  const handleValueChange = (moneyValue: string) => {
+    console.log(moneyToFloat(moneyValue));
+    setValue(moneyToFloat(moneyValue));
+  };
 
   const handleAddExpense = () => {};
   const handleClean = () => {
     setDescription("");
     setType("");
-    setValue(formatMoney(0));
+    setValue(0);
   };
 
   return (
@@ -51,7 +56,7 @@ const AddExpense = () => {
           <CardInput
             title="Valor"
             type="money"
-            text={value}
+            text={formatMoney(value)}
             onChange={handleValueChange}
           />
           <ButtonsContainer>
