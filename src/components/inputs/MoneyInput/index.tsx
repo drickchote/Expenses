@@ -1,5 +1,11 @@
 import { createRef, useRef } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { MONEY_MASK } from "../../../utils";
 import { InputProps } from "../types";
 import { Container } from "./styles";
@@ -10,6 +16,9 @@ const MoneyInput = ({ text, onChange }: InputProps) => {
   const focusInput = () => {
     inputRef.current && inputRef.current.focus();
   };
+
+  //TODO disable copy and paste
+  //TODO deal with error when user paster text
 
   return (
     <Pressable onPress={focusInput}>
@@ -26,7 +35,12 @@ const MoneyInput = ({ text, onChange }: InputProps) => {
             alignItems: "center",
           }}
         >
-          <TextInput ref={inputRef} value={text} onChange={onChange} />
+          <TextInput
+            keyboardType="numeric"
+            ref={inputRef}
+            value={text}
+            onChangeText={onChange}
+          />
         </View>
       </Container>
     </Pressable>
