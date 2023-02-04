@@ -3,25 +3,36 @@ import { ImageBackground, View } from "react-native";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import SecondaryButton from "../../components/buttons/SecondaryButton";
 import CardInput from "../../components/inputs/CardInput";
-import { ButtonsContainer } from "../../styles";
-import { formatMoney, moneyToFloat } from "../../utils";
+import { ButtonsContainer } from "../../shared/styles";
+import { formatMoney, moneyToFloat } from "../../shared/utils";
 import { Container, Title, TitleContainer } from "./styles";
+import { getFirestore, addDoc, collection } from "firebase/firestore";
+import { firestone } from "../../config/firebaseConfig";
 
 const AddExpense = () => {
   const [description, setDescription] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("initial type");
   const [value, setValue] = useState(0);
+  const db = getFirestore(firestone);
+  const collectionRef = collection(db, "expenses");
 
   const handleDescriptionChange = (text: string) => {
     setDescription(text);
   };
   const handleTypeChange = () => {};
   const handleValueChange = (moneyValue: string) => {
-    console.log(moneyToFloat(moneyValue));
     setValue(moneyToFloat(moneyValue));
   };
 
-  const handleAddExpense = () => {};
+  const handleAddExpense = async () => {
+    await addDoc(collectionRef, {
+      description,
+      type,
+      value,
+    });
+
+    handleClean();
+  };
   const handleClean = () => {
     setDescription("");
     setType("");
