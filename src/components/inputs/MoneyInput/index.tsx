@@ -1,12 +1,6 @@
-import { createRef, useRef } from "react";
-import {
-  KeyboardAvoidingView,
-  Pressable,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import { MONEY_MASK } from "../../../utils";
+import { createRef } from "react";
+import { Pressable, Text, TextInput, View } from "react-native";
+import { MONEY_MASK } from "../../../shared/utils";
 import { InputProps } from "../types";
 import { Container } from "./styles";
 
