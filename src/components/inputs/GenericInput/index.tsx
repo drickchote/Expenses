@@ -1,4 +1,4 @@
-import { createRef, useRef } from "react";
+import { createRef } from "react";
 import { Pressable, TextInput } from "react-native";
 import { InputProps } from "../types";
 import { Container } from "./styles";
@@ -13,7 +13,7 @@ const GenericInput = ({ text, onChange }: InputProps) => {
   return (
     <Pressable onPress={focusInput}>
       <Container>
-        <TextInput ref={inputRef} value={text} onChange={onChange} />
+        <TextInput ref={inputRef} value={text} onChangeText={onChange} />
       </Container>
     </Pressable>
   );
