@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { ButtonContainer, Title } from "./styles";
 
 interface PrimaryButtonProps {
@@ -8,11 +8,11 @@ interface PrimaryButtonProps {
 
 const PrimaryButton = ({ title, onPress }: PrimaryButtonProps) => {
   return (
-    <Pressable onPress={onPress}>
+    <TouchableOpacity onPress={onPress}>
       <ButtonContainer>
         <Title>{title}</Title>
       </ButtonContainer>
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 
