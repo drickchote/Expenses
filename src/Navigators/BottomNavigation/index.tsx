@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import AddExpense from "../../screens/AddExpense";
 import { AntDesign } from "@expo/vector-icons";
 import { useTheme } from "styled-components";
+import { ExpenseList } from "../../screens/ExpenseList";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +24,7 @@ const BottomNavigation = () => {
           component={AddExpense}
           options={{ tabBarIcon: () => <AntDesign name="plus" size={24} /> }}
         />
-        <Tab.Screen name="AddExpense2" component={AddExpense} />
+        <Tab.Screen name="Lista de gastos" component={ExpenseList} />
       </Tab.Navigator>
     </NavigationContainer>
   );
