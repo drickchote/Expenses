@@ -19,7 +19,9 @@ const AddExpense = () => {
   const handleDescriptionChange = (text: string) => {
     setDescription(text);
   };
-  const handleTypeChange = () => {};
+  const handleTypeChange = (text: string) => {
+    setType(text);
+  };
   const handleValueChange = (moneyValue: string) => {
     setValue(moneyToFloat(moneyValue));
   };
@@ -29,6 +31,7 @@ const AddExpense = () => {
       description,
       type,
       value,
+      date: new Date()
     });
 
     handleClean();
@@ -60,7 +63,7 @@ const AddExpense = () => {
           />
           <CardInput
             title="Tipo"
-            type="select"
+            type="text"
             text={type}
             onChange={handleTypeChange}
           />
