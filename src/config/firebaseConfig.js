@@ -6,7 +6,7 @@ import { initializeApp } from "firebase/app";
 // import {...} from "firebase/firestore";
 
 // Your web app's Firebase configuration
-const { firebaseConfig } = require("../config/config.json");
+const { firebaseConfig } = require("./config.json");
 
 // Initialize Firebase
 export const firestone = initializeApp(firebaseConfig);
