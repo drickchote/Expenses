@@ -54,18 +54,11 @@ const AddExpense = () => {
           <TitleContainer>
             <Title>Adicionar Gasto</Title>
           </TitleContainer>
-
           <CardInput
             title="Descrição"
             type="text"
             text={description}
             onChange={handleDescriptionChange}
-          />
-          <CardInput
-            title="Tipo"
-            type="text"
-            text={type}
-            onChange={handleTypeChange}
           />
           <CardInput
             title="Valor"
