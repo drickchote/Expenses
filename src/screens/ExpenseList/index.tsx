@@ -1,60 +1,23 @@
-import { getFirestore } from "firebase/firestore";
-import { SectionList, Text } from "react-native";
+import { SectionList } from "react-native";
 import { ExpenseListItem } from "../../components/ExpenseListItem";
-import { firestone } from "../../config/firebaseConfig";
 import { Screen } from "../../shared/styles";
 import { Header, SectionTitle, SectionTitleContainer } from "./styles";
+import EmptyList from "./components/EmptyList";
+import { useNavigation } from "@react-navigation/native";
 
-const data = [
-    {
-        title: "Outubro",
-        data: [
-            {
-                description: "Bic Mac",
-                value: 49.99,
-                date: new Date("2023-10-12"),
-                type: "besteiras",
-            },
-            {
-                description: "Milk Shake + Batata",
-                value: 49.99,
-                date: new Date("2023-10-08"),
-                type: "besteiras",
-            },
-            {
-                description: "Mc com Mariel",
-                value: 49.99,
-                date: new Date("2023-10-25"),
-                type: "besteiras",
-            },
-        ],
-    },
-    {
-        title: "Novembro",
-        data: [
-            {
-                description: "Mc com Mariel",
-                value: 49.99,
-                date: new Date("2023-11-25"),
-                type: "besteiras",
-            },
-            {
-                description: "Mc com Mariel",
-                value: 49.99,
-                date: new Date("2023-11-25"),
-                type: "besteiras",
-            },
-        ],
-    },
-];
 
-export const ExpenseList = () => {
-    const db = getFirestore(firestone);
+const handleEmptyListPress = (navigation) =>{
+    navigation.navigate("addExpense")
+}
 
+export const ExpenseList = ({navigation}) => {
+    const data = []
     return (
         <Screen>
             <Header></Header>
             <SectionList
+                ListEmptyComponent={<EmptyList onPress={() => handleEmptyListPress(navigation)}/>}
+                contentContainerStyle={{flexGrow: 1}}
                 sections={data}
                 renderItem={({ item }) => (
                     <ExpenseListItem

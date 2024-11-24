@@ -18,11 +18,11 @@ const BottomNavigation = () => {
         }}
       >
         <Tab.Screen
-          name="ADICIONAR GASTO"
+          name="addExpense"
           component={AddExpense}
           options={{ tabBarIcon: () => <Feather name="plus" size={24} /> }}
         />
-        <Tab.Screen name="Lista de gastos" component={ExpenseList} 
+        <Tab.Screen name="expenseList" component={ExpenseList} 
           options={{ tabBarIcon: () => <Feather name="list" size={24} /> }}
         />
       </Tab.Navigator>

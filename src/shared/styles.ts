@@ -7,6 +7,5 @@ export const Screen = styled.View`
 export const ButtonsContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  margin-left: 80px;
-  margin-right: 80px;
+  padding-horizontal: 50px;
 `;

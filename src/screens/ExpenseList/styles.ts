@@ -4,7 +4,7 @@ export const Header = styled.View`
     background-color: ${(props) => props.theme.main.primary};
     align-items: center;
     justify-content: center;
-    height: 127px;
+    height: 40px;
 `;
 
 export const SectionTitleContainer = styled.View`
