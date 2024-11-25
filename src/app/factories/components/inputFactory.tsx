@@ -1,7 +1,7 @@
-import GenericInput from "../../components/inputs/GenericInput";
-import MoneyInput from "../../components/inputs/MoneyInput";
-import SelectInput from "../../components/inputs/SelectInput";
-import { InputProps } from "../../components/inputs/types";
+import GenericInput from "../../../components/inputs/GenericInput";
+import MoneyInput from "../../../components/inputs/MoneyInput";
+import SelectInput from "../../../components/inputs/SelectInput";
+import { InputProps } from "../../../components/inputs/types";
 
 interface CardInputProps {
   type: "text" | "money" | "select";

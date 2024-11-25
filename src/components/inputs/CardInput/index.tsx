@@ -1,5 +1,5 @@
 import React from "react";
-import { createInput } from "../../../app/factories/inputFactory";
+import { createInput } from "../../../app/factories/components/inputFactory";
 import { InputProps, InputType } from "../types";
 import { Container, Title, TitleContainer } from "./styles";
 

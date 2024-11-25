@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import AddExpense from "../../screens/AddExpense";
 import {  Feather } from "@expo/vector-icons";
-import { ExpenseList } from "../../screens/ExpenseList";
+import ExpenseList from "../../screens/ExpenseList";
 
 const Tab = createBottomTabNavigator();
 

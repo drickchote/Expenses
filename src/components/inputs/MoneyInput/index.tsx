@@ -1,8 +1,8 @@
 import { createRef } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
-import { MONEY_MASK } from "../../../shared/utils";
 import { InputProps } from "../types";
 import { Container } from "./styles";
+import { MONEY_MASK } from "../../../shared/contants";
 
 const MoneyInput = ({ text, onChange }: InputProps) => {
   const inputRef = createRef<TextInput>();

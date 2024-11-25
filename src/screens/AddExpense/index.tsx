@@ -6,39 +6,34 @@ import CardInput from "../../components/inputs/CardInput";
 import { ButtonsContainer } from "../../shared/styles";
 import { formatMoney, moneyToFloat } from "../../shared/utils";
 import { Container, Title, TitleContainer } from "./styles";
-import { getFirestore, addDoc, collection } from "firebase/firestore";
-import { firestone } from "../../config/firebaseConfig";
+import { buildExpenseService } from "../../app/factories/services/ExpenseService";
 
 const AddExpense = () => {
   const [description, setDescription] = useState("");
-  const [type, setType] = useState("initial type");
   const [value, setValue] = useState(0);
-  const db = getFirestore(firestone);
-  const collectionRef = collection(db, "expenses");
+
+  const expenseService = buildExpenseService()
 
   const handleDescriptionChange = (text: string) => {
     setDescription(text);
   };
-  const handleTypeChange = (text: string) => {
-    setType(text);
-  };
+
   const handleValueChange = (moneyValue: string) => {
     setValue(moneyToFloat(moneyValue));
   };
 
   const handleAddExpense = async () => {
-    await addDoc(collectionRef, {
+    const newExpense = {
+      date: new Date(),
       description,
-      type,
-      value,
-      date: new Date()
-    });
-
-    handleClean();
+      value
+    }
+    await expenseService.insert(newExpense).catch(error => console.log(error))
+    handleClean()
   };
+  
   const handleClean = () => {
     setDescription("");
-    setType("");
     setValue(0);
   };
 

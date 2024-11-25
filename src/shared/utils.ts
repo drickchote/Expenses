@@ -1,4 +1,3 @@
-export const MONEY_MASK = "R$"; // TODO put this in configuration screen
 
 export const formatMoney = (value: number): string => {
   return value
@@ -26,3 +25,4 @@ export const moneyToFloat = (value: string): number => {
 
   return floatValue * multiplyFactor;
 };
+
