@@ -9,3 +9,8 @@ export const ButtonsContainer = styled.View`
   justify-content: space-between;
   padding-horizontal: 50px;
 `;
+
+export const RowView = styled.View`
+  flex-direction: row;
+`;
+

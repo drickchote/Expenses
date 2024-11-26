@@ -55,6 +55,19 @@ export class AsyncStorageDatabase <Entity extends BaseEntity> implements Storage
 
     }
     async delete(id:string): Promise<Entity>{
-        return Promise.resolve({} as Entity)
+        const list = await this.select()
+        const newList = [] as Entity[]
+        let deletedElement = {} as Entity
+
+        list.forEach(item => {
+            if(item.id !== id){
+                newList.push(item)
+            } else {
+                deletedElement = item
+            }
+        })
+
+        await AsyncStorage.setItem(this.key, JSON.stringify(newList))
+        return deletedElement
     }
 }

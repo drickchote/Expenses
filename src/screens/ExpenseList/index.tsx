@@ -8,20 +8,23 @@ import { MONTHS } from "../../shared/contants";
 import { useCallback, useMemo, useState } from "react";
 import { buildExpenseService } from "../../app/factories/services/ExpenseService";
 import { useFocusEffect } from "@react-navigation/native";
+import { BaseEntity } from "../../db/storage";
 
+
+interface SectionType {
+    title: typeof MONTHS[number]; 
+    data: (Expense & BaseEntity)[]
+}
 
 const handleEmptyListPress = (navigation) =>{
     navigation.navigate("addExpense")
 }
 
-interface SectionType {
-    title: typeof MONTHS[number]; 
-    data: Expense[]
-}
 
-const convertListToSections = (data: Expense[]): SectionType[] => {
+
+const convertListToSections = (data: (Expense & BaseEntity)[]): SectionType[] => {
     type months = typeof MONTHS[number]
-    const list = {} as Record<months, Expense[]>
+    const list = {} as Record<months, (Expense & BaseEntity)[]>
 
     data.forEach((expense) => {
         const month = expense.date.getMonth()
@@ -55,8 +58,14 @@ const getExpenses = async () => {
 
 const ExpenseList =  ({navigation}) => {
 
-    const [expenses, setExpenses] = useState<Expense[]>([])
+    const [expenses, setExpenses] = useState<(Expense & BaseEntity)[]>([])
    
+
+    const handleDelete = async(id: string) => {
+        const expenseService = buildExpenseService()
+        const deleted = await expenseService.delete(id)
+        setExpenses(current => current.filter(expense => expense.id !== deleted.id))
+    }
 
     useFocusEffect(
         useCallback(() => {
@@ -77,9 +86,8 @@ const ExpenseList =  ({navigation}) => {
                 sections={expensesSections}
                 renderItem={({ item }) => (
                     <ExpenseListItem
-                        date={item.date}
-                        description={item.description}
-                        value={item.value}
+                        expense={item}
+                        handleDelete={handleDelete}
                     />
                 )}
                 renderSectionHeader={({ section }) => (

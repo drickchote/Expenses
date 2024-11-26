@@ -1,5 +1,5 @@
 import { Expense } from "../shared/types";
-import { Storage } from "../db/storage";
+import { BaseEntity, Storage } from "../db/storage";
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -12,7 +12,7 @@ export class ExpenseService {
         this.storage = storage
     }
 
-    async getAll(): Promise<Expense[]>{
+    async getAll(): Promise<(Expense & BaseEntity)[]>{
         const rawData = await this.storage.select()
 
         return rawData.map(expense => ({
@@ -50,8 +50,8 @@ export class ExpenseService {
         return this.storage.update(expense)
     }
 
-    async delete(id: string){
-        const expense = this.find(id)
+    async delete(id: string): Promise<Expense & BaseEntity>{
+        const expense = await this.find(id)
 
         if(expense === null){
             throw new Error("Expense not found", {cause: 404})
