@@ -6,7 +6,7 @@ import CardInput from "../../components/inputs/CardInput";
 import { ButtonsContainer } from "../../shared/styles";
 import { formatMoney, moneyToFloat } from "../../shared/utils";
 import { Container, Title, TitleContainer } from "./styles";
-import { buildExpenseService } from "../../app/factories/services/ExpenseService";
+import { buildExpenseService } from "../../app/factories/services/ExpenseServiceFactory";
 
 const AddExpense = () => {
   const [description, setDescription] = useState("");

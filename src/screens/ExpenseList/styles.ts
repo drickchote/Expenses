@@ -4,7 +4,8 @@ export const Header = styled.View`
     background-color: ${(props) => props.theme.main.primary};
     align-items: center;
     justify-content: center;
-    height: 40px;
+    height: 100px;
+    padding-top: 20px;
 `;
 
 export const SectionTitleContainer = styled.View`
@@ -15,4 +16,10 @@ export const SectionTitleContainer = styled.View`
 export const SectionTitle = styled.Text`
     font-weight: bold;
     font-size: 12px;
+`;
+
+export const HeaderText = styled.Text`
+    font-weight: bold;
+    font-size: 16px;
+    color: #fff;
 `;

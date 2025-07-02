@@ -26,3 +26,14 @@ export const moneyToFloat = (value: string): number => {
   return floatValue * multiplyFactor;
 };
 
+export const daysInThisMonth = () => {
+  var now = new Date();
+  return new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+}
+
+export const daysLeftInThisMonth = () => {
+  const now = new Date();
+  const totalDays = daysInThisMonth();
+  const today = now.getDate();
+  return totalDays - today;
+}

@@ -1,14 +1,16 @@
-import { SectionList } from "react-native";
+import { SectionList, Text } from "react-native";
 import { ExpenseListItem } from "../../components/ExpenseListItem";
 import { Screen } from "../../shared/styles";
-import { Header, SectionTitle, SectionTitleContainer } from "./styles";
+import { Header, HeaderText, SectionTitle, SectionTitleContainer } from "./styles";
 import EmptyList from "./components/EmptyList";
 import { Expense } from "../../shared/types";
-import { MONTHS } from "../../shared/contants";
+import { DEFAULT_BUDGET_VALUE, MONTHS } from "../../shared/contants";
 import { useCallback, useMemo, useState } from "react";
-import { buildExpenseService } from "../../app/factories/services/ExpenseService";
+import { buildExpenseService } from "../../app/factories/services/ExpenseServiceFactory";
 import { useFocusEffect } from "@react-navigation/native";
 import { BaseEntity } from "../../db/storage";
+import { buildBudgetService } from "../../app/factories/services/BudgetServiceFactory";
+import { daysInThisMonth, daysLeftInThisMonth, formatMoney } from "../../shared/utils";
 
 
 interface SectionType {
@@ -56,10 +58,15 @@ const getExpenses = async () => {
     return expenseService.getAll()
 }
 
+const getCurrentMonthBudget = async () => {
+    const budgetService = buildBudgetService()
+    return budgetService.getCurrentMonthBudget()
+}
+
 const ExpenseList =  ({navigation}) => {
 
     const [expenses, setExpenses] = useState<(Expense & BaseEntity)[]>([])
-   
+    const [currentMonthBudget, setCurrentMonthBudget] = useState<number>(0)
 
     const handleDelete = async(id: string) => {
         const expenseService = buildExpenseService()
@@ -76,10 +83,28 @@ const ExpenseList =  ({navigation}) => {
     )
 
     const expensesSections = useMemo(() => convertListToSections(expenses), [expenses])    
+    getCurrentMonthBudget().then(data => {
+        setCurrentMonthBudget(data?.value || DEFAULT_BUDGET_VALUE)
+    })
+
+    const calculateBudget = (expenses: (Expense & BaseEntity)[]) => {
+        const total = expenses.reduce((acc, expense) => acc + expense.value, 0)
+        return currentMonthBudget - total
+    }
+
+    const calculateDailyBudget = (expenses: (Expense & BaseEntity)[]) => {
+        const budget = calculateBudget(expenses)
+        return budget / daysLeftInThisMonth()
+    }
+
 
     return (
         <Screen> 
-            <Header></Header>
+            <Header>
+                <HeaderText>
+                    Saldo: R${formatMoney(calculateBudget(expenses))} | Diário: R${formatMoney(calculateDailyBudget(expenses))}
+                </HeaderText>
+            </Header>
             <SectionList
                 ListEmptyComponent={<EmptyList onPress={() => handleEmptyListPress(navigation)}/>}
                 contentContainerStyle={{flexGrow: 1}}
