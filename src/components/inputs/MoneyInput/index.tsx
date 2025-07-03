@@ -1,4 +1,4 @@
-import { createRef } from "react";
+import React, { createRef } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import { InputProps } from "../types";
 import { Container } from "./styles";

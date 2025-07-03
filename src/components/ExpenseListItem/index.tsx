@@ -1,3 +1,4 @@
+import React from "react";
 import { TouchableOpacity } from "react-native";
 import { RowView } from "../../shared/styles";
 import { Expense } from "../../shared/types";
@@ -5,7 +6,7 @@ import { formatMoney } from "../../shared/utils";
 import {
     Container,
     DateContainer,
-    Day,
+    Day,    
     Description,
     ItemContainer,
     Month,

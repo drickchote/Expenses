@@ -1,4 +1,5 @@
-import { SectionList, Text } from "react-native";
+import React from "react";
+import { SectionList } from "react-native";
 import { ExpenseListItem } from "../../components/ExpenseListItem";
 import { Screen } from "../../shared/styles";
 import { Header, HeaderText, SectionTitle, SectionTitleContainer } from "./styles";
@@ -10,7 +11,7 @@ import { buildExpenseService } from "../../app/factories/services/ExpenseService
 import { useFocusEffect } from "@react-navigation/native";
 import { BaseEntity } from "../../db/storage";
 import { buildBudgetService } from "../../app/factories/services/BudgetServiceFactory";
-import { daysInThisMonth, daysLeftInThisMonth, formatMoney } from "../../shared/utils";
+import {  daysLeftInThisMonth, formatMoney } from "../../shared/utils";
 
 
 interface SectionType {
