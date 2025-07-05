@@ -29,7 +29,9 @@ const convertListToSections = (data: (Expense & BaseEntity)[]): SectionType[] =>
     type months = typeof MONTHS[number]
     const list = {} as Record<months, (Expense & BaseEntity)[]>
 
-    data.forEach((expense) => {
+    const sortedData = data.sort((a,b) => a.date.getTime() - b.date.getTime())
+
+    sortedData.forEach((expense) => {
         const month = expense.date.getMonth()
         if(list[MONTHS[month]]){
             list[MONTHS[month]].push(expense)
@@ -89,21 +91,40 @@ const ExpenseList =  ({navigation}) => {
     })
 
     const calculateBudget = (expenses: (Expense & BaseEntity)[]) => {
-        const total = expenses.reduce((acc, expense) => acc + expense.value, 0)
+        const total = expenses.reduce((acc, expense) => {
+            const today = new Date()
+
+            // if the expense is today, don't add to the total
+            if(expense.date.getDate() === today.getDate() && expense.date.getMonth() === today.getMonth() && expense.date.getFullYear() === today.getFullYear()){
+                return acc
+            }
+            return acc + expense.value
+        },  0)
         return currentMonthBudget - total
     }
 
     const calculateDailyBudget = (expenses: (Expense & BaseEntity)[]) => {
         const budget = calculateBudget(expenses)
-        return budget / daysLeftInThisMonth()
+        return parseFloat((budget / daysLeftInThisMonth()).toFixed(2))
     }
+
+    const calculateTodayExpenses = (expenses: (Expense & BaseEntity)[]) => {
+        const today = new Date()
+        const todayExpenses = expenses.filter(expense => expense.date.getDate() === today.getDate() && expense.date.getMonth() === today.getMonth() && expense.date.getFullYear() === today.getFullYear())
+        return todayExpenses.reduce((acc, expense) => acc + expense.value, 0)
+    }
+
+    const todayExpenses = useMemo(() => calculateTodayExpenses(expenses), [expenses])
 
 
     return (
         <Screen> 
             <Header>
                 <HeaderText>
-                    Saldo: R${formatMoney(calculateBudget(expenses))} | Diário: R${formatMoney(calculateDailyBudget(expenses))}
+                    Saldo: R${formatMoney(calculateBudget(expenses))} | Diário: R${formatMoney(calculateDailyBudget(expenses))} 
+                </HeaderText>
+                <HeaderText>
+                     Hoje: R${formatMoney(todayExpenses)} | Restante: R${formatMoney(calculateDailyBudget(expenses) - todayExpenses)}
                 </HeaderText>
             </Header>
             <SectionList
